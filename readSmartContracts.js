@@ -24,7 +24,7 @@ const ERC20_ABI = [
   'function name() view returns (string)',
   'function symbol() view returns (string)',
   'function totalSupply() view returns (uint256)',
-  'function balanceOf(address) returns (uint)'
+  'function balanceOf(address) view returns (uint)'
 ]
 
 // create a new contract
@@ -42,14 +42,10 @@ const main = async () => {
     Total Supply: ${totalSupply}
   `)
 
-  try {
-    const balance = await contract.balanceOf(
-      '0x6c6Bc977E13Df9b0de53b251522280BB72383700'
-    )
-    console.log(`Balance returned: ${balance}`)
-  } catch (error) {
-    console.log(error)
-  }
+  const balance = await contract.balanceOf(
+    '0x6c6Bc977E13Df9b0de53b251522280BB72383700'
+  )
+  console.log(`Balance returned: ${ethers.utils.formatEther(balance)}`)
 }
 
 main()
